@@ -28,4 +28,18 @@ echo "CREATE DATABASE IF NOT EXISTS wordpress;" \
 	| mysql -u root --skip-password
 echo "CREATE USER IF NOT EXISTS 'jkeum'@'localhost' IDENTIFIED BY 'jkeum';" \
 	| mysql -u root --skip-password
+echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'jkeum'@'localhost' WITH GRANT OPTION;" \
+	| mysql -u root --skip-password
 
+# wordpress 설치 및 설정
+wget https://wordpress.org/latest.tar.gz
+tar -xvf latest.tar.gz
+mv wordpress/ var/www/html/
+chown -R www-data:www-data /var/www/html/wordpress
+cp -rp ./wp-config.php /var/www/html/wordpress
+
+service nginx start
+service php7.3-fpm start
+service mysql restart
+
+bash

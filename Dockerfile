@@ -2,7 +2,7 @@ FROM	debian:buster
 
 LABEL	maintainer="jkeum@student.42seoul.kr"
 
-RUN		apt-get update && apt-get install -y \
+RUN		apt-get update && apt-get -y upgrade && apt-get install -y \
 		nginx \
 		openssl \
 		vim \
